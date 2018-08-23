@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Horoscofox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100" rel="stylesheet">
+</head>
+
+<body>
+    <div id="background">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="clouds"></div>
+    </div>
+    <main>
+        <main>
+            <div class="center-on-page">
+                <div id="welcome">
+                    <h1>Horoscofox</h1>
+                    <div class="select">
+                        <select  id="astrologer">
+                            <option value="paolo" selected>Paolo Fox</option>
+                            <option value="branko">Branko</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="select">
+                        <select  id="day">
+                            <option selected value="today">Today</option>
+                            <option value="tomorrow">Tomorrow</option>
+                        </select>
+                    </div><br>
+                    <div class="select">
+                        <select  id="sign">
+                            <option selected value="virgo">♍️ Virgo
+                            </option>
+                            <option value="leo">♌️ Leo
+                            </option>
+
+                        </select>
+                    </div>
+                    <button>Search</button>
+                </div> 
+                <div id="r" class="result">
+                    <div class="result__resume">
+                        <span id="r_astrologer"></span>
+                        <span id="r_sign"></span>
+                        <span id="r_day"></span>
+                    </div>
+                    <div>
+                        <p id="r_text"></p>
+                        <div class="result__date">
+                            Valido da <span id="r_d_s"></span> a <span id="r_d_e"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </main>
+</body>
+
+</html>
