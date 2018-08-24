@@ -21,9 +21,9 @@ const ASTROLOGERS = [
 ]
 
 const KINDS = [
-    {value:'today', label: 'Oggi'},
-    {value:'tomorrow', label:'Domani'},
-    {value:'week', label:'Questa settimana'}
+    { value: 'today', label: 'Oggi' },
+    { value: 'tomorrow', label: 'Domani' },
+    { value: 'week', label: 'Questa settimana' }
 ]
 
 replaceAll = (str, find, replace) => {
@@ -58,12 +58,14 @@ domIsReady = (callback) => {
 
 
 makeAccentedLetters = (text) => {
-    text = replaceAll(text,"a'", "à")
-    text = replaceAll(text,"perche'", "perché")
-    text = replaceAll(text,"e'", "è")
+    text = replaceAll(text, "a'", "à")
+    text = replaceAll(text, "perche'", "perché")
+    text = replaceAll(text, "finche'", "finché")
+    text = replaceAll(text, "poiche'", "poiché")
+    text = replaceAll(text, "e'", "è")
     text = replaceAll(text, "o'", "ò")
     text = replaceAll(text, "pò", "po'")
-    text = replaceAll(text,"u'", "ù")
+    text = replaceAll(text, "u'", "ù")
     return text
 
 }
@@ -88,12 +90,12 @@ emojize = (text) => {
     return text
 }
 
-generateOption = (select, optionSet, selected='') => {
+generateOption = (select, optionSet, selected = '') => {
     var select = document.getElementById(select)
     for (let i in optionSet) {
-        if (selected == optionSet[i].value){
+        if (selected == optionSet[i].value) {
             select.add(new Option(optionSet[i].label, optionSet[i].value, true, true))
-        }else{
+        } else {
             select.add(new Option(optionSet[i].label, optionSet[i].value))
         }
     }
@@ -107,8 +109,8 @@ init_select = () => {
 
 validate = (value, validatedSet) => {
     let result = false
-    for (let index in validatedSet){
-        if (validatedSet[index].value == value){
+    for (let index in validatedSet) {
+        if (validatedSet[index].value == value) {
             result = true
             break
         }
@@ -141,8 +143,8 @@ callService = (url, options) => {
     })
 }
 
-validateUrlParameters = (astrologer,sign,day) =>{
-    return validate(astrologer,ASTROLOGERS) && validate(sign,SIGNS) && validate(day,KINDS)
+validateUrlParameters = (astrologer, sign, day) => {
+    return validate(astrologer, ASTROLOGERS) && validate(sign, SIGNS) && validate(day, KINDS)
 }
 
 initializeAll = () => {
@@ -152,6 +154,13 @@ initializeAll = () => {
     const astologerSelect = element.querySelector('#astrologer')
     const daySelect = element.querySelector('#day')
     const signSelect = element.querySelector('#sign')
+
+    compileRTitle = () => {
+        var astologer = astologerSelect.options[astologerSelect.selectedIndex].text
+        var day = daySelect.options[daySelect.selectedIndex].text
+        var sign = signSelect.options[signSelect.selectedIndex].text
+        document.getElementById('r_title').innerHTML = `${astologer} - ${sign} - ${day}`
+    }
 
     submitRequest = () => {
         callService(compileUrl(), options)
@@ -163,13 +172,14 @@ initializeAll = () => {
     }
 
     compileUrl = () => {
+        compileRTitle()
         var astologer = astologerSelect.options[astologerSelect.selectedIndex].value
         var day = daySelect.options[daySelect.selectedIndex].value
         var sign = signSelect.options[signSelect.selectedIndex].value
-        if (validateUrlParameters(astologer,sign,day)){
+        if (validateUrlParameters(astologer, sign, day)) {
             var pathCompleted = hex.decode(base_url) + `/${astologer}/${sign}/${day}`
             return pathCompleted
-        }else{
+        } else {
             console.log('You cannot play with me');
         }
     }
