@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
 }
-
+body{
+  overflow: hidden;
+}
 @keyframes move-twink-back {
     from {background-position:0 0;}
     to {background-position:-10000px 5000px;}
@@ -56,7 +58,6 @@
 .twinkling{
   background:transparent url(images/twinkling.png) repeat top center;
   z-index:1;
-
   -moz-animation:move-twink-back 400s linear infinite;
   -ms-animation:move-twink-back 400s linear infinite;
   -o-animation:move-twink-back 400s linear infinite;
@@ -65,9 +66,8 @@
 }
 
 .clouds{
-    background:transparent url(images/clouds3.png) repeat top center;
-    z-index:3;
-
+  background:transparent url(images/clouds3.png) repeat top center;
+  z-index:3;
   -moz-animation:move-clouds-back 400s linear infinite;
   -ms-animation:move-clouds-back 400s linear infinite;
   -o-animation:move-clouds-back 400s linear infinite;
@@ -76,12 +76,10 @@
 }
 
 main{
-    z-index: 4;
+  z-index: 4;
 }
 
-
-
- h1{
+h1{
   color: white;
   font-size: 3.8rem;
   font-family: 'Work Sans', sans-serif;
@@ -109,11 +107,18 @@ button{
   font-family: 'Work Sans', sans-serif;
 }
 .result{
-
-    color: white;
-  
+  overflow: auto;
+  color: white;
   font-family: 'Work Sans', sans-serif;
 }
+
+@media screen and (max-width: 992px) {
+  .result {
+    height: 80vh;
+  }
+  
+}
+
 .result__resume{
     font-size: 1.5rem;
 
@@ -121,6 +126,11 @@ button{
 .result__date{
   margin-top: 1rem;
   font-size: 0.8rem;
+
+}
+.result__text{
+  line-height: 1.5;
+  font-size: 1.4rem;
 
 }
 
@@ -140,7 +150,7 @@ select {
   background-image: none;
 }
 /* Custom Select */
-.select {
+.select_dark {
   position: relative;
   display: block;
   width: 20em;
@@ -168,7 +178,7 @@ select::-ms-expand {
 }
 
 /* Arrow */
-.select::after {
+.select_dark::after {
   content: '\25BC';
   position: absolute;
   top: 0;
@@ -179,10 +189,10 @@ select::-ms-expand {
   pointer-events: none;
 }
 /* Transition */
-.select:hover::after {
+.select_dark:hover::after {
   color: rgba(128, 128, 128, 0.637);
 }
-.select::after {
+.select_dark::after {
   -webkit-transition: .25s all ease;
   -o-transition: .25s all ease;
   transition: .25s all ease;

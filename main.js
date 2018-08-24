@@ -26,12 +26,26 @@ const KINDS = [
     {value:'week', label:'Questa settimana'}
 ]
 
+show = (elem) => {
+    elem.style.display = 'block'
+}
+
+hide = (elem) => {
+    elem.style.display = 'none'
+}
+
+toggle = (elem) => {
+    if (window.getComputedStyle(elem).display === 'block') {
+        hide(elem)
+        return
+    }
+    show(elem)
+}
+
 domIsReady = (callback) => {
-    // in case the document is already rendered
     if (document.readyState != 'loading') {
         callback();
     }
-    // modern browsers
     else if (document.addEventListener) {
         document.addEventListener('DOMContentLoaded', callback)
     }
@@ -89,15 +103,21 @@ const options = {
     method: "GET"
 }
 
+compileResults = (text, dateStart, dateEnd) => {
+    toggle(document.getElementById('r'))
+    document.getElementById('r_text').innerHTML = text
+    document.getElementById('r_d_s').innerHTML = dateStart
+    document.getElementById('r_d_e').innerHTML = dateEnd
+}
+
 callService = (url, options) => {
     fetch(url, options).then(function (response) {
         if (!response.ok) {
             throw new Error(response.statusText)
         }
         response.json().then(function (data) {
-            document.getElementById('r_text').innerHTML = emojize(data['message']['text'])
-            document.getElementById('r_d_s').innerHTML = data['message']['date_start']
-            document.getElementById('r_d_e').innerHTML = data['message']['date_end']
+            toggle(document.getElementById('welcome'))
+            compileResults(emojize(data['message']['text']), data['message']['date_start'], data['message']['date_end'])
         });
 
     })
@@ -109,6 +129,7 @@ validateUrlParameters = (astrologer,sign,day) =>{
 
 initializeAll = () => {
     init_select()
+    hide(document.getElementById('r'))
     const element = document.getElementById("welcome")
     const astologerSelect = element.querySelector('#astrologer')
     const daySelect = element.querySelector('#day')
@@ -118,6 +139,11 @@ initializeAll = () => {
         callService(compileUrl(), options)
     }
 
+    returnToHomepage = () => {
+        toggle(document.getElementById('welcome'))
+        toggle(document.getElementById('r'))
+    }
+
     compileUrl = () => {
         var astologer = astologerSelect.options[astologerSelect.selectedIndex].value
         var day = daySelect.options[daySelect.selectedIndex].value
@@ -125,13 +151,12 @@ initializeAll = () => {
         if (validateUrlParameters(astologer,sign,day)){
             var pathCompleted = hex.decode(base_url) + `/${astologer}/${sign}/${day}`
             return pathCompleted
-        }
-        else{
+        }else{
             console.log('You cannot play with me');
         }
     }
-
     element.querySelector('#search').addEventListener("click", submitRequest)
+    document.getElementById('r').addEventListener("click", returnToHomepage)
 }
 
 domIsReady(initializeAll)

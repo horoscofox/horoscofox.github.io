@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,6 @@
     <script src="main.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100" rel="stylesheet">
 </head>
-
 <body>
     <div id="background">
         <div class="stars"></div>
@@ -22,39 +20,33 @@
             <div class="center-on-page">
                 <div id="welcome">
                     <h1>Horoscofox</h1>
-                    <div class="select">
-                        <select  id="astrologer">
-                            
-                        </select>
+                    <div class="select_dark">
+                        <select id="astrologer"></select>
                     </div>
                     <br>
-                    <div class="select">
-                        <select  id="day">
-                           
-                        </select>
+                    <div class="select_dark">
+                        <select id="day"></select>
                     </div><br>
-                    <div class="select">
-                        <select  id="sign">
-                           
-                        </select>
+                    <div class="select_dark">
+                        <select id="sign"></select>
                     </div>
                     <button id="search">Search</button>
                 </div> 
                 <div id="r" class="result">
                     <div class="result__resume">
-                         
                         <p id="r_title"></p>
                     </div>
                     <div>
-                        <p id="r_text"></p>
+                        <p id="r_text" class="result__text"></p>
                         <div class="result__date">
                             Valido da <span id="r_d_s"></span> a <span id="r_d_e"></span>
                         </div>
                     </div>
+                    <button id="goback">Indietro</button>
+
                 </div>
             </div>
         </main>
     </main>
 </body>
-
 </html>
