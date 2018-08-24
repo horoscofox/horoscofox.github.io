@@ -106,17 +106,10 @@ button{
   font-size: 1.5rem;
   font-family: 'Work Sans', sans-serif;
 }
+
 .result{
-  overflow: auto;
   color: white;
   font-family: 'Work Sans', sans-serif;
-}
-
-@media screen and (max-width: 992px) {
-  .result {
-    height: 80vh;
-  }
-  
 }
 
 .result__resume{
@@ -133,11 +126,33 @@ button{
   font-size: 1.4rem;
 
 }
+ 
+.result__info {
+  overflow: auto;
 
-h1 {
-  text-align: center;
+  height: 60vh;
+
 }
-/* Reset Select */
+
+@media screen and (max-width: 992px){
+  .result{
+    width: 100%  !important;
+  }
+  .center-on-page{
+    position: absolute;
+    z-index: 5;
+    text-align: center;
+  }
+  .result__info {
+    overflow: auto ;
+  }
+  .result__text{
+    line-height: 1.4;
+    font-size: 0.9rem;
+  }
+}
+
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -149,7 +164,7 @@ select {
   background:rgba(0, 0, 0, 0.705);
   background-image: none;
 }
-/* Custom Select */
+
 .select_dark {
   position: relative;
   display: block;
@@ -159,9 +174,10 @@ select {
   background:rgba(255, 255, 255, 0.39);
   overflow: hidden;
   border-radius: .25em;
-    font-family: 'Work Sans', sans-serif;
-     font-size: 1rem;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1rem;
 }
+
 select {
   width: 100%;
   height: 100%;
@@ -169,15 +185,15 @@ select {
   padding: 0 0 0 .5em;
   color: rgb(255, 255, 255);
   cursor: pointer;
-    font-family: 'Work Sans', sans-serif;
-     font-size: 1rem;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1rem;
 
 }
+
 select::-ms-expand {
   display: none;
 }
 
-/* Arrow */
 .select_dark::after {
   content: '\25BC';
   position: absolute;
@@ -188,10 +204,11 @@ select::-ms-expand {
   background: rgba(70, 70, 70, 0.226);
   pointer-events: none;
 }
-/* Transition */
+
 .select_dark:hover::after {
   color: rgba(128, 128, 128, 0.637);
 }
+
 .select_dark::after {
   -webkit-transition: .25s all ease;
   -o-transition: .25s all ease;

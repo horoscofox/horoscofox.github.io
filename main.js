@@ -1,9 +1,6 @@
 var hex = { encode: function (e) { e = unescape(encodeURIComponent(e)); for (var n = "", o = 0; o < e.length; o++)n += e.charCodeAt(o).toString(16); return n }, decode: function (e) { for (var n = "", o = 0; o < e.length; o += 2)n += String.fromCharCode(parseInt(e.substr(o, 2), 16)); return decodeURIComponent(escape(n)) } }
 
 const SIGNS = [
-    { value: 'capricorn', label: '♑️ Capricorno' },
-    { value: 'aquarius', label: '♒️ Acquario' },
-    { value: 'pisces', label: '♓️ Pesci' },
     { value: 'aries', label: '♈️ Ariete' },
     { value: 'taurus', label: '♉️ Toro' },
     { value: 'gemini', label: '♊️ Gemelli' },
@@ -12,7 +9,10 @@ const SIGNS = [
     { value: 'virgo', label: '♍️ Vergine' },
     { value: 'libra', label: '♎️ Bilancia' },
     { value: 'scorpio', label: '♏️ Scorpione' },
-    { value: 'sagittarius', label: '♐️ Sagittario' }
+    { value: 'sagittarius', label: '♐️ Sagittario' },
+    { value: 'capricorn', label: '♑️ Capricorno' },
+    { value: 'aquarius', label: '♒️ Acquario' },
+    { value: 'pisces', label: '♓️ Pesci' }
 ]
 
 const ASTROLOGERS = [
@@ -156,7 +156,7 @@ initializeAll = () => {
         }
     }
     element.querySelector('#search').addEventListener("click", submitRequest)
-    document.getElementById('r').addEventListener("click", returnToHomepage)
+    document.getElementById('goback').addEventListener("click", returnToHomepage)
 }
 
 domIsReady(initializeAll)
