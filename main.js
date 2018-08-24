@@ -26,6 +26,11 @@ const KINDS = [
     {value:'week', label:'Questa settimana'}
 ]
 
+replaceAll = (str, find, replace) => {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
+
+
 show = (elem) => {
     elem.style.display = 'block'
 }
@@ -51,22 +56,35 @@ domIsReady = (callback) => {
     }
 }
 
+
+makeAccentedLetters = (text) => {
+    text = replaceAll(text,"a'", "à")
+    text = replaceAll(text,"perche'", "perché")
+    text = replaceAll(text,"e'", "è")
+    text = replaceAll(text, "o'", "ò")
+    text = replaceAll(text, "pò", "po'")
+    text = replaceAll(text,"u'", "ù")
+    return text
+
+}
+
 emojize = (text) => {
-    text = text.replace("amore ", "amore ❤️ ")
-    text = text.replace("AMORE:", "AMORE ❤️ :")
-    text = text.replace("Amore ", "Amore ❤️ ")
-    text = text.replace("Soldi ", "Soldi 💰 ")
-    text = text.replace("soldi ", "soldi 💰 ")
-    text = text.replace("Spese ", "Spese 🛍 ")
-    text = text.replace("spese ", "spese 🛍 ")
-    text = text.replace("Luna ", "Luna 🌙 ")
-    text = text.replace("luna ", "luna 🌙 ")
-    text = text.replace("Sole ", "Sole ☀️ ")
-    text = text.replace("sole ", "sole ☀️ ")
-    text = text.replace("lavoro ", "lavoro 🛠 ")
-    text = text.replace("LAVORO:", "<br>LAVORO 🛠 :")
-    text = text.replace("Lavoro ", "Lavoro 🛠 ")
-    text = text.replace("BENESSERE:", "<br>BENESSERE 🌴 :")
+    text = makeAccentedLetters(text)
+    text = replaceAll(text, "amore ", "amore ❤️ ")
+    text = replaceAll(text, "AMORE:", "AMORE ❤️ :")
+    text = replaceAll(text, "Amore ", "Amore ❤️ ")
+    text = replaceAll(text, "Soldi ", "Soldi 💰 ")
+    text = replaceAll(text, "soldi ", "soldi 💰 ")
+    text = replaceAll(text, "Spese ", "Spese 🛍 ")
+    text = replaceAll(text, "spese ", "spese 🛍 ")
+    text = replaceAll(text, "Luna ", "Luna 🌙 ")
+    text = replaceAll(text, "luna ", "luna 🌙 ")
+    text = replaceAll(text, "Sole ", "Sole ☀️ ")
+    text = replaceAll(text, "sole ", "sole ☀️ ")
+    text = replaceAll(text, "lavoro ", "lavoro 🛠 ")
+    text = replaceAll(text, "LAVORO:", "<br>LAVORO 🛠 :")
+    text = replaceAll(text, "Lavoro ", "Lavoro 🛠 ")
+    text = replaceAll(text, "BENESSERE:", "<br>BENESSERE 🌴 :")
     return text
 }
 

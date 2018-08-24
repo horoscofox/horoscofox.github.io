@@ -82,7 +82,11 @@ main{
 h1{
   color: white;
   font-size: 3.8rem;
-  font-family: 'Work Sans', sans-serif;
+  
+
+    font-family: 'Fira Sans', sans-serif;
+
+
 }
 
 .center-on-page {
@@ -104,17 +108,20 @@ button{
   cursor: pointer;
   color: white;
   font-size: 1.5rem;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
+
+
 }
 
 .result{
   color: white;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
+
+
 }
 
 .result__resume{
     font-size: 1.5rem;
-
 }
 .result__date{
   margin-top: 1rem;
@@ -122,14 +129,13 @@ button{
 
 }
 .result__text{
-  line-height: 1.5;
+   line-height: 1.5;
   font-size: 1.4rem;
 
 }
  
 .result__info {
   overflow: auto;
-
   height: 60vh;
 
 }
@@ -174,7 +180,7 @@ select {
   background:rgba(255, 255, 255, 0.39);
   overflow: hidden;
   border-radius: .25em;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   font-size: 1rem;
 }
 
@@ -185,7 +191,7 @@ select {
   padding: 0 0 0 .5em;
   color: rgb(255, 255, 255);
   cursor: pointer;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   font-size: 1rem;
 
 }
