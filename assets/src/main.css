@@ -4,6 +4,8 @@
 }
 body{
   overflow: hidden;
+      font-family: 'Fira Sans', sans-serif;
+
 }
 @keyframes move-twink-back {
     from {background-position:0 0;}

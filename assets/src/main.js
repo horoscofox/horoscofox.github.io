@@ -166,6 +166,7 @@ validateUrlParameters = (astrologer, sign, day) => {
 
 initializeAll = () => {
     init_select()
+    doriaInit()
     hide(document.getElementById('r'))
     const element = document.getElementById("welcome")
     const astologerSelect = element.querySelector('#astrologer')
@@ -205,4 +206,51 @@ initializeAll = () => {
     document.getElementById('goback').addEventListener("click", returnToHomepage)
 }
 
+
+doriaInit = () => {
+    var dd = doria.prepare({
+        title: 'Informativa breve Cookie',
+        subtitle:
+            "Questo sito utilizza cookie tecnici di prima parte e \
+                    cookie analitici di terze parti per offrire agli utenti una \
+                    migliore esperienza di navigazione e per raccogliere informazioni \
+                    sull’utilizzo del sito stesso. Questo sito NON utilizza cookie di \
+                    profilazione. <br>",
+        bannerDescription: "Horoscofox utilizza i cookie per migliorare la tua \
+                esperienza nel sito. I cookie ti permettono di utilizzare alcune \
+                funzioni (come salvare il segno zodiacale).\
+                Inoltre, ci permettono di\
+                 analizzare l'utilizzo del nostro sito. Continuando a utilizzare \
+                 il nostro sito acconsenti all'utilizzo dei cookie.",
+        beforeAccept: "Cliccando su Accetto acconsenti all'utilizzo di \
+                cookie tecnici di prima parte",
+        acceptButtonLabel: "Accetto",
+        settingsButtonLabel: "Impostazioni",
+        closeButtonLabel: "Chiudi"
+    });
+    dd.addCookieSettings(
+        'marketing',
+        'Marketing',
+        'Accetto l\'utilizzo di cookie analitici per la valutazione dell\' esperienza utente ',
+        ['_ga', '_gat', '_gid']
+    );
+    dd.on('marketing', function () {
+        console.log('Let\'s start with GoogleAnalytics');
+
+    })
+    dd.addCookieSettings(
+        'core',
+        'Tecnici',
+        'Accetto che venga salvato il mio segno zodiacale e la mia ultima richiesta di oroscopo',
+        ['_hs', '_ha', '_hk']
+    );
+    dd.on('core', function () {
+        console.log('Save astrologer, sign and kind');
+
+    })
+    dd.bake();
+}
+
 domIsReady(initializeAll)
+
+
