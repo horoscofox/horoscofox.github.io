@@ -257,6 +257,15 @@ select::-ms-expand {
   align-items: center;
 }
 
+@media screen and (max-width: 992px){
+  .fab__wrapper{
+    width: 100%;
+    justify-content: center;
+    right: 0;
+    bottom: 5%;
+  }
+}
+
 .fab__advice{
   background-color: dodgerblue;
   padding: 0.3rem 1rem;
