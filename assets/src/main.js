@@ -246,16 +246,12 @@ doriaInit = () => {
 
     })    
     dd.on('marketing', function () {
-        console.log('Let\'s start with GoogleAnalytics');
-        // Global site tag (gtag.js) - Google Analytics
         var script = document.createElement('script');
         script.setAttribute("src", "https://www.googletagmanager.com/gtag/js?id=UA-119353807-2");
         document.head.appendChild(script)
-        
-        window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || []; 
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'UA-119353807-2');
     })
     dd.bake();
