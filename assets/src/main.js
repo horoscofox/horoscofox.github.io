@@ -234,10 +234,7 @@ doriaInit = () => {
         'Accetto l\'utilizzo di cookie analitici per la valutazione dell\' esperienza utente ',
         ['_ga', '_gat', '_gid']
     );
-    dd.on('marketing', function () {
-        console.log('Let\'s start with GoogleAnalytics');
 
-    })
     dd.addCookieSettings(
         'core',
         'Tecnici',
@@ -247,10 +244,22 @@ doriaInit = () => {
     dd.on('core', function () {
         console.log('Save astrologer, sign and kind');
 
+    })    
+    dd.on('marketing', function () {
+        console.log('Let\'s start with GoogleAnalytics');
+        // Global site tag (gtag.js) - Google Analytics
+        var script = document.createElement('script');
+        script.setAttribute("src", "https://www.googletagmanager.com/gtag/js?id=UA-119353807-2");
+        document.head.appendChild(script)
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119353807-2');
     })
     dd.bake();
+
 }
 
 domIsReady(initializeAll)
-
-
