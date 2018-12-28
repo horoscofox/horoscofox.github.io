@@ -246,17 +246,10 @@ doriaInit = () => {
 
     })    
     dd.on('marketing', function () {
-        console.log('Let\'s start with GoogleAnalytics');
-        // Global site tag (gtag.js) - Google Analytics
-        var script = document.createElement('script');
-        script.setAttribute("src", "https://www.googletagmanager.com/gtag/js?id=UA-119353807-2");
-        document.head.appendChild(script)
-        
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-119353807-2');
+        window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+        ga('create', 'UA-119353807-2', {"cookieDomain":"none"}); ga('send', 'pageview');
+        doria.loadScript("https://www.google-analytics.com/analytics.js").then(function () {      
+        })
     })
     dd.bake();
 
