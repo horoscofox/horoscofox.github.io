@@ -40,7 +40,11 @@ body{
     from {background-position: 0;}
     to {background-position:10000px 0;}
 }
-
+.background{
+  background-color: #1d1e1f;
+  height: 100vh;
+  width: 100vw;
+}
 .stars, .twinkling, .clouds {
   position:absolute;
   top:0;
@@ -52,14 +56,14 @@ body{
   display:block;
 }
 
-.stars--visble {
+.stars--visible {
   background:#000 url(../../images/stars.jpg) repeat top center;
-  z-index:0;
+  z-index:1;
 }
 
 .twinkling--visible{
   background:transparent url(../../images/twinkling.png) repeat top center;
-  z-index:1;
+  z-index:2;
   -moz-animation:move-twink-back 400s linear infinite;
   -ms-animation:move-twink-back 400s linear infinite;
   -o-animation:move-twink-back 400s linear infinite;
@@ -84,11 +88,7 @@ main{
 h1{
   color: white;
   font-size: 3.8rem;
-  
-
-    font-family: 'Fira Sans', sans-serif;
-
-
+  font-family: 'Fira Sans', sans-serif;
 }
 
 .center-on-page {
@@ -111,20 +111,17 @@ button{
   color: white;
   font-size: 1.5rem;
   font-family: 'Fira Sans', sans-serif;
-
-
 }
 
 .result{
   color: white;
   font-family: 'Fira Sans', sans-serif;
-
-
 }
 
 .result__resume{
     font-size: 1.5rem;
 }
+
 .result__date{
   margin-top: 1rem;
   font-size: 0.8rem;
@@ -223,22 +220,9 @@ select::-ms-expand {
   transition: .25s all ease;
 }
 
-.fab__icon{
-  font-size: 1.8em;
-}
+ 
 
-.fab__icon::after{
-  content: "\02728";
-}
-
-.fab__button{
-  transition: all 0.3s;
-}
-
-.fab__button:hover, .fab__button:focus, .fab__button:active{
- transform: scale(1.4)
-}
-
+ 
 .background{
   background-color: #1d1e1f;
   height: 100vh;
@@ -265,24 +249,64 @@ select::-ms-expand {
     bottom: 5%;
   }
 }
+ 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
-.fab__advice{
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gray;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.slider:before {
+  position: absolute;
+  padding-left: 15%;
+  padding-top: 8%;
+  content: "⭐️";
+  font-size: 20px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+input:checked + .slider {
   background-color: dodgerblue;
-  padding: 0.3rem 1rem;
-  border-radius: 48px;
-  margin-right: 1rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s;
 }
 
-.fab__advice:hover{
-  transform: scale(1.1);
+input:focus + .slider {
+  box-shadow: 0 0 1px dodgerblue;
 }
 
-
-.indicator-icon{
-  font-size: 1.4em;
-  padding: 0 0.5rem;
+input:checked + .slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
 }
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+ 
+
+ 

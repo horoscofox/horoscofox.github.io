@@ -184,6 +184,11 @@ initializeAll = () => {
         callService(compileUrl(), options)
     }
 
+    enableCoolMode = () => {
+        toggle(document.getElementById('cool-mode-elem'))
+
+    }
+
     returnToHomepage = () => {
         toggle(document.getElementById('welcome'))
         toggle(document.getElementById('r'))
@@ -203,6 +208,7 @@ initializeAll = () => {
         }
     }
     element.querySelector('#search').addEventListener("click", submitRequest)
+    document.getElementById('cool-mode-switch').addEventListener("click", enableCoolMode)
     document.getElementById('goback').addEventListener("click", returnToHomepage)
 }
 
@@ -243,7 +249,6 @@ doriaInit = () => {
     );
     dd.on('core', function () {
         console.log('Save astrologer, sign and kind');
-
     })    
     dd.on('marketing', function () {
         var script = document.createElement('script');
