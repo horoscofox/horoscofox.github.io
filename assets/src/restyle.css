@@ -1,0 +1,61 @@
+  * {
+    margin: 0;
+    padding: 0;
+}
+  
+ section {
+    max-width:34em;
+    margin:auto;
+    padding:0 1em;
+  }
+  h1 {
+    font-size: 3.3em;
+  }
+  h2 {
+    font-size: 0.874em;
+  }
+  h3 {
+    font-size:1.229em;
+  }
+  main{
+    height: inherit;
+    display:flex;align-items:center;justify-content: center
+  }
+  @media screen and (max-width: 25em) {
+    body { font-size: 90%;}
+  }
+  .cols { 
+    column-width: 25em;
+    column-gap: 5em;
+  }
+  body {
+    height: 100vh;
+    font-size:100%; 
+    line-height:1.7;
+    background-color: #070707;
+    color: whitesmoke;
+    overflow: hidden;
+    font-family: 'Quattrocento', serif;
+  }
+  .result__text{
+    font-size: large;
+  }
+  .result__resume{
+      margin-bottom: 5%;
+      text-align: center
+  }
+  .result__date{
+    margin-top: 5%;
+
+    text-align: center
+}
+#welcome{
+    text-align: center;
+}
+#select_group{
+    text-align: center;
+}
+.select_dark{
+    text-align: center;
+}
+ 
