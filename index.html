@@ -4,11 +4,17 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Horoscofox</title>
+    <!-- 
+        <script src="assets/lib/doria/doria.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/lib/doria/main.css" /> 
+    -->
     <meta name="keywords" content="Oroscopo, paolo fox, vergine, gemelli, oggi, amore, segni zodiacali, astri, branko">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" type="text/css" media="screen" href="assets/min/main.min.css" />
     <script src="assets/min/main.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:200" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
     <!-- Favicon set -->
     <link rel="apple-touch-icon" sizes="57x57" href="assets/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/favicons/apple-icon-60x60.png">
@@ -23,23 +29,22 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-    <link rel="manifest" href="assets/src/manifest.json">
     <meta name="msapplication-TileColor" content="#0c2035">
     <meta name="msapplication-TileImage" content="assets/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#0c2035">
     <!-- end favicon set -->
-
-
+    <link rel="manifest" href="assets/src/manifest.json"> 
 </head>
 <body>
-    <div id="background">
-        <div class="stars"></div>
-        <div class="twinkling"></div>
-        <div class="clouds"></div>
+    <div >
+        <div id="cool-mode-elem" style="display: none;"  >
+            <div class="stars stars--visible"></div>
+            <div class="twinkling twinkling--visible"></div>
+            <div class="clouds clouds--visible"></div>
+        </div>
     </div>
     <main>
-        <main>
-            <div class="center-on-page">
+        <section>
                 <div id="welcome">
                     <h1>Horoscofox</h1>
                     <div id="select_group">
@@ -55,15 +60,26 @@
                             <select id="sign"></select>
                         </div>
                     </div>
-                    <button id="search">Search</button>
+                    <button class='btn' id="search">Search</button>
                     <br>
-                    <a href="https://github.com/horoscofox/horoscofox.github.io" target="blank" ><svg height="32" style="filter: invert(100%); margin-top:10%" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path
-                            fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    <a href="https://github.com/horoscofox/horoscofox.github.io" target="blank" >
+                        <svg height="32" style="filter: invert(100%); margin-top:10%" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                        </svg>
                     </a>
+                <br/>
+                <br/>
+                <label  class="toggle">
+                    <span id="lbl_cool_mode">Dov'è il cielo stellato?</span>
+                    <br>
+                        <input class="toggle-checkbox"  type="checkbox">
+                        <div id="cool_mode"  class="toggle-switch"></div>
+                    </label>
                 </div> 
                 <div id="r" class="result">
                     <div class="result__resume">
-                        <p id="r_title"></p>
+                        <h1 id="r_title"></h1>
+                        <h3 id="r_astrologer"></h3>
                     </div>
                     <div class="result__info">
                         <p id="r_text" class="result__text"></p>
@@ -71,11 +87,11 @@
                             Valido da <span id="r_d_s"></span> a <span id="r_d_e"></span>
                         </div>
                     </div>
-                    <button id="goback">Indietro</button>
-
+                    <div class="result__date">
+                    <button class='btn' id="goback">Indietro</button>
                 </div>
-            </div>
-        </main>
+                </div>
+        </section>
     </main>
 </body>
 </html>
