@@ -23,7 +23,9 @@ const ASTROLOGERS = [
 const KINDS = [
     { value: 'today', emoji : '', label: 'Oggi' },
     { value: 'tomorrow', emoji : '', label: 'Domani' },
-    { value: 'week', emoji : '', label: 'Questa settimana' }
+    { value: 'week', emoji : '', label: 'Questa settimana' },
+    { value: 'month', emoji : '', label: 'Questo mese' },
+    { value: 'info', emoji : '', label: 'Informazioni sul segno' }
 ]
 /* Set of useful functions */
 replaceAll = (str, find, replace) => {
