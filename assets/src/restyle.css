@@ -34,7 +34,7 @@
     line-height:1.7;
     background-color: #070707;
     color: whitesmoke;
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: 'Quattrocento', serif;
   }
   .result__text{
