@@ -1,31 +1,31 @@
 var hex = { encode: function (e) { e = unescape(encodeURIComponent(e)); for (var n = "", o = 0; o < e.length; o++)n += e.charCodeAt(o).toString(16); return n }, decode: function (e) { for (var n = "", o = 0; o < e.length; o += 2)n += String.fromCharCode(parseInt(e.substr(o, 2), 16)); return decodeURIComponent(escape(n)) } }
 
 const SIGNS = [
-    { value: 'aries', emoji :'♈︎' , label: 'Ariete' },
-    { value: 'taurus', emoji :'♉︎' , label: 'Toro' },
-    { value: 'gemini', emoji :'♊︎' , label: 'Gemelli' },
-    { value: 'cancer', emoji :'♋︎' , label: 'Cancro' },
-    { value: 'leo', emoji :'♌︎' , label: 'Leone' },
-    { value: 'virgo', emoji :'♍︎' , label: 'Vergine' },
-    { value: 'libra', emoji :'♎︎' , label: 'Bilancia' },
-    { value: 'scorpio', emoji :'♏︎' , label: 'Scorpione' },
-    { value: 'sagittarius', emoji :'♐︎' , label: 'Sagittario' },
-    { value: 'capricorn', emoji :'♑︎' , label: 'Capricorno' },
-    { value: 'aquarius', emoji :'♒︎' , label: 'Acquario' },
-    { value: 'pisces', emoji :'♓︎' , label: 'Pesci' }
+    { value: 'aries', emoji: '♈︎', label: 'Ariete' },
+    { value: 'taurus', emoji: '♉︎', label: 'Toro' },
+    { value: 'gemini', emoji: '♊︎', label: 'Gemelli' },
+    { value: 'cancer', emoji: '♋︎', label: 'Cancro' },
+    { value: 'leo', emoji: '♌︎', label: 'Leone' },
+    { value: 'virgo', emoji: '♍︎', label: 'Vergine' },
+    { value: 'libra', emoji: '♎︎', label: 'Bilancia' },
+    { value: 'scorpio', emoji: '♏︎', label: 'Scorpione' },
+    { value: 'sagittarius', emoji: '♐︎', label: 'Sagittario' },
+    { value: 'capricorn', emoji: '♑︎', label: 'Capricorno' },
+    { value: 'aquarius', emoji: '♒︎', label: 'Acquario' },
+    { value: 'pisces', emoji: '♓︎', label: 'Pesci' }
 ]
 
 const ASTROLOGERS = [
-    { value: 'paolo', emoji : '', label: 'Paolo Fox' },
-    { value: 'branko', emoji : '',label: 'Branko' }
+    { value: 'paolo', emoji: '', label: 'Paolo Fox' },
+    { value: 'branko', emoji: '', label: 'Branko' }
 ]
 
 const KINDS = [
-    { value: 'today', emoji : '', label: 'Oggi' },
-    { value: 'tomorrow', emoji : '', label: 'Domani' },
-    { value: 'week', emoji : '', label: 'Questa settimana' },
-    { value: 'month', emoji : '', label: 'Questo mese' },
-    { value: 'info', emoji : '', label: 'Informazioni sul segno' }
+    { value: 'today', emoji: '', label: 'Oggi' },
+    { value: 'tomorrow', emoji: '', label: 'Domani' },
+    { value: 'week', emoji: '', label: 'Questa settimana' },
+    { value: 'month', emoji: '', label: 'Questo mese' },
+    { value: 'info', emoji: '', label: 'Informazioni sul segno' }
 ]
 /* Set of useful functions */
 replaceAll = (str, find, replace) => {
@@ -110,17 +110,62 @@ generateOption = (select, optionSet, selected = '') => {
     var select = document.getElementById(select)
     for (let i in optionSet) {
         if (selected == optionSet[i].value) {
-            select.add(new Option(optionSet[i].emoji+' '+optionSet[i].label, optionSet[i].value, true, true))
+            select.add(new Option(optionSet[i].emoji + ' ' + optionSet[i].label, optionSet[i].value, true, true))
         } else {
-            select.add(new Option(optionSet[i].emoji+' '+optionSet[i].label, optionSet[i].value))
+            select.add(new Option(optionSet[i].emoji + ' ' + optionSet[i].label, optionSet[i].value))
         }
     }
 }
 
+validateDataOfStorage = (key, value) => {
+    if (key == 'astrologer' || key == 'sign' || key == 'day') {
+        if (validate(value, ASTROLOGERS) || validate(value, SIGNS) || validate(value, KINDS)) {
+            return true
+        } else {
+            return false
+        }
+    }
+    return false
+}
+
+setDataStorage = (key, value) => {
+    try {
+        if (validateDataOfStorage(key, value)) {
+            localStorage.setItem(key, value)
+            return value
+        }
+    } catch(e) {
+        return false
+    }
+}
+
+getOrCreateFromStorage = (key, create = '') => {
+    try {
+        let value = localStorage.getItem(key);
+        if (value && (validate(value, ASTROLOGERS) || validate(value, SIGNS) || validate(value, KINDS))) {
+            return value
+        } else {
+            return setDataStorage(key, create)
+        }
+    } catch(e) {
+        return create
+    }
+}
+
+updateStorage = (key, value = '') => {
+    let oldValue = getOrCreateFromStorage(key, '')
+    if (oldValue != value) {
+        setDataStorage(key, value)
+    }
+}
+
 init_select = () => {
-    generateOption('astrologer', ASTROLOGERS, "paolo")
-    generateOption('sign', SIGNS, "virgo")
-    generateOption('day', KINDS, "today")
+    let def_astrologer = getOrCreateFromStorage('astrologer', 'paolo')
+    let def_sign = getOrCreateFromStorage('sign', 'virgo')
+    let def_day = getOrCreateFromStorage('day', 'today')
+    generateOption('astrologer', ASTROLOGERS, def_astrologer)
+    generateOption('sign', SIGNS, def_sign)
+    generateOption('day', KINDS, def_day)
 }
 
 validate = (value, validatedSet) => {
@@ -147,7 +192,6 @@ compileResults = (text, dateStart, dateEnd) => {
     document.getElementById('r_d_s').innerHTML = dateStart
     document.getElementById('r_d_e').innerHTML = dateEnd
     document.getElementById('goback').addEventListener("click", returnToHomepage)
-
 }
 
 callService = (url, options) => {
@@ -167,51 +211,41 @@ validateUrlParameters = (astrologer, sign, day) => {
     return validate(astrologer, ASTROLOGERS) && validate(sign, SIGNS) && validate(day, KINDS)
 }
 
-
-
- 
-
-
 initializeAll = () => {
     init_select()
-    //doriaInit()
     hide(document.getElementById('r'))
     const element = document.getElementById("welcome")
-    const astologerSelect = element.querySelector('#astrologer')
+    const astrologerSelect = element.querySelector('#astrologer')
     const daySelect = element.querySelector('#day')
     const signSelect = element.querySelector('#sign')
-
     compileRTitle = () => {
-        var astologer = astologerSelect.options[astologerSelect.selectedIndex].text
+        var astologer = astrologerSelect.options[astrologerSelect.selectedIndex].text
         var day = daySelect.options[daySelect.selectedIndex].text
         var sign = signSelect.options[signSelect.selectedIndex].text
         document.getElementById('r_title').innerHTML = `${sign}`
         document.getElementById('r_astrologer').innerHTML = `${astologer} `
     }
-
     submitRequest = () => {
         callService(compileUrl(), options)
     }
-
     enableCoolMode = () => {
         toggle(document.getElementById('cool-mode-elem'))
         msg = document.getElementById('lbl_cool_mode').innerHTML
         msg_enabled = "Guarda quante stelle!"
         msg_enable = "Dov'è il cielo stellato?"
-  document.getElementById('lbl_cool_mode').innerHTML = msg == msg_enabled ? msg_enable : msg_enabled;
-
-
+        document.getElementById('lbl_cool_mode').innerHTML = msg == msg_enabled ? msg_enable : msg_enabled;
     }
-
-    
 
     compileUrl = () => {
         compileRTitle()
-        var astologer = astologerSelect.options[astologerSelect.selectedIndex].value
+        var astrologer = astrologerSelect.options[astrologerSelect.selectedIndex].value
         var day = daySelect.options[daySelect.selectedIndex].value
         var sign = signSelect.options[signSelect.selectedIndex].value
-        if (validateUrlParameters(astologer, sign, day)) {
-            var pathCompleted = hex.decode(base_url) + `/${astologer}/${sign}/${day}`
+        updateStorage('astrologer', astrologer)
+        updateStorage('sign', sign)
+        updateStorage('day', day)
+        if (validateUrlParameters(astrologer, sign, day)) {
+            var pathCompleted = hex.decode(base_url) + `/${astrologer}/${sign}/${day}`
             return pathCompleted
         } else {
             // User has modified options values, and it cannot play with us
@@ -222,57 +256,5 @@ initializeAll = () => {
     document.getElementById('cool_mode').addEventListener("click", enableCoolMode)
 }
 
-
-doriaInit = () => {
-    var dd = doria.prepare({
-        title: 'Informativa breve Cookie',
-        subtitle:
-            "Questo sito utilizza cookie tecnici di prima parte e \
-                    cookie analitici di terze parti per offrire agli utenti una \
-                    migliore esperienza di navigazione e per raccogliere informazioni \
-                    sull’utilizzo del sito stesso. Questo sito NON utilizza cookie di \
-                    profilazione. <br>",
-        bannerDescription: "Horoscofox utilizza i cookie per migliorare la tua \
-                esperienza nel sito. I cookie ti permettono di utilizzare alcune \
-                funzioni (come salvare il segno zodiacale).\
-                Inoltre, ci permettono di\
-                 analizzare l'utilizzo del nostro sito. Continuando a utilizzare \
-                 il nostro sito acconsenti all'utilizzo dei cookie.",
-        beforeAccept: "Cliccando su Accetto acconsenti all'utilizzo di \
-                cookie tecnici di prima parte",
-        acceptButtonLabel: "Accetto",
-        settingsButtonLabel: "Impostazioni",
-        closeButtonLabel: "Chiudi"
-    });
-    dd.addCookieSettings(
-        'marketing',
-        'Marketing',
-        'Accetto l\'utilizzo di cookie analitici per la valutazione dell\' esperienza utente ',
-        ['_ga', '_gat', '_gid']
-    );
-
-    dd.addCookieSettings(
-        'core',
-        'Tecnici',
-        'Accetto che venga salvato il mio segno zodiacale e la mia ultima richiesta di oroscopo',
-        ['_hs', '_ha', '_hk']
-    );
-    dd.on('core', function () {
-        console.log('Save astrologer, sign and kind');
-    })    
-    dd.on('marketing', function () {
-        var script = document.createElement('script');
-        script.setAttribute("src", "https://www.googletagmanager.com/gtag/js?id=UA-119353807-2");
-        document.head.appendChild(script)
-        window.dataLayer = window.dataLayer || []; 
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-119353807-2');
-    })
-    dd.bake();
-
-}
-
 domIsReady(initializeAll)
 
- 
