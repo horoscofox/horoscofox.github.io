@@ -27,15 +27,19 @@ const KINDS = [
     { value: 'month', emoji: '', label: 'Questo mese' },
     { value: 'info', emoji: '', label: 'Informazioni sul segno' }
 ]
+
 /* Set of useful functions */
 replaceAll = (str, find, replace) => {
     // Replace all occurences of word in a text
     return str.replace(new RegExp(find, 'g'), replace);
 }
 
-
 show = (elem) => {
     elem.style.display = 'block'
+}
+
+showInline = (elem) => {
+    elem.style.display = 'inline'
 }
 
 hide = (elem) => {
@@ -51,11 +55,14 @@ toggle = (elem) => {
     show(elem)
 }
 
+conditionalToggle = (elem, condition, inline = false) => {
+    inline ? condition ? hide(elem) : showInline(elem) : condition ? hide(elem) : show(elem)
+}
+
 domIsReady = (callback) => {
     if (document.readyState == 'complete') {
         callback();
-    }
-    else if (document.addEventListener) {
+    } else if (document.addEventListener) {
         document.addEventListener('DOMContentLoaded', callback)
     }
 }
@@ -134,7 +141,7 @@ setDataStorage = (key, value) => {
             localStorage.setItem(key, value)
             return value
         }
-    } catch(e) {
+    } catch (e) {
         return false
     }
 }
@@ -147,7 +154,7 @@ getOrCreateFromStorage = (key, create = '') => {
         } else {
             return setDataStorage(key, create)
         }
-    } catch(e) {
+    } catch (e) {
         return create
     }
 }
@@ -159,13 +166,13 @@ updateStorage = (key, value = '') => {
     }
 }
 
-init_select = () => {
+init_select = (astrologers = '', kinds = '') => {
     let def_astrologer = getOrCreateFromStorage('astrologer', 'paolo')
     let def_sign = getOrCreateFromStorage('sign', 'virgo')
     let def_day = getOrCreateFromStorage('day', 'today')
-    generateOption('astrologer', ASTROLOGERS, def_astrologer)
-    generateOption('sign', SIGNS, def_sign)
-    generateOption('day', KINDS, def_day)
+    generateOption('astrologer', optionSet = ASTROLOGERS, def_astrologer)
+    generateOption('sign', optionSet = SIGNS, def_sign)
+    generateOption('day', optionSet = KINDS, def_day)
 }
 
 validate = (value, validatedSet) => {
@@ -211,23 +218,34 @@ validateUrlParameters = (astrologer, sign, day) => {
     return validate(astrologer, ASTROLOGERS) && validate(sign, SIGNS) && validate(day, KINDS)
 }
 
+hideKindSelect = () => {
+    let element = document.getElementById("welcome")
+    let daySelect = element.querySelector('#day')
+    conditionalToggle(daySelect.parentElement, astrologer.value == "branko")
+    conditionalToggle(daySelect.parentElement.previousElementSibling, astrologer.value == "branko", inline = true)
+    if (astrologer.value == "branko") daySelect.selectedIndex = 0
+}
+
 initializeAll = () => {
     init_select()
     hide(document.getElementById('r'))
     const element = document.getElementById("welcome")
     const astrologerSelect = element.querySelector('#astrologer')
+    if (astrologerSelect.options[astrologerSelect.selectedIndex].value=='branko') hideKindSelect()
     const daySelect = element.querySelector('#day')
     const signSelect = element.querySelector('#sign')
+
     compileRTitle = () => {
         var astologer = astrologerSelect.options[astrologerSelect.selectedIndex].text
-        var day = daySelect.options[daySelect.selectedIndex].text
         var sign = signSelect.options[signSelect.selectedIndex].text
         document.getElementById('r_title').innerHTML = `${sign}`
         document.getElementById('r_astrologer').innerHTML = `${astologer} `
     }
+
     submitRequest = () => {
         callService(compileUrl(), options)
     }
+
     enableCoolMode = () => {
         toggle(document.getElementById('cool-mode-elem'))
         msg = document.getElementById('lbl_cool_mode').innerHTML
@@ -239,6 +257,7 @@ initializeAll = () => {
     compileUrl = () => {
         compileRTitle()
         var astrologer = astrologerSelect.options[astrologerSelect.selectedIndex].value
+        if (astrologer=='branko') daySelect.selectedIndex=0
         var day = daySelect.options[daySelect.selectedIndex].value
         var sign = signSelect.options[signSelect.selectedIndex].value
         updateStorage('astrologer', astrologer)
@@ -252,9 +271,11 @@ initializeAll = () => {
             console.log('You cannot play with me');
         }
     }
+    astrologer.addEventListener("change", function () {
+       hideKindSelect()
+    });
     element.querySelector('#search').addEventListener("click", submitRequest)
     document.getElementById('cool_mode').addEventListener("click", enableCoolMode)
 }
 
 domIsReady(initializeAll)
-
