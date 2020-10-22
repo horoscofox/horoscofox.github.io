@@ -166,7 +166,7 @@ updateStorage = (key, value = '') => {
     }
 }
 
-init_select = (astrologers = '', kinds = '') => {
+init_select = () => {
     let def_astrologer = getOrCreateFromStorage('astrologer', 'paolo')
     let def_sign = getOrCreateFromStorage('sign', 'virgo')
     let def_day = getOrCreateFromStorage('day', 'today')
